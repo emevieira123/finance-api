@@ -3,6 +3,51 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model Usuarios {
+  usuarioId     String @id @default(uuid())
+  nome          String
+  email         String @unique
+  senha         String
+  usuarioGithub String
+
+  divida   Divida[]
+  parcelas Parcelas[]
+
+  @@map("usuarios")
+}
+
+model Divida {
+  dividaId     String   @id @default(uuid())
+  nomeCobrador String
+  nomeProduto  String
+  created_at   DateTime @default(now())
+
+  usuarioId String
+  usuario   Usuarios @relation(fields: [usuarioId], references: [usuarioId])
+
+  parcelas Parcelas[]
+
+  @@map("divida")
+}
+
+model Parcelas {
+  parcelaId          String   @id @default(uuid())
+  valorParcela       Decimal
+  diaVencimento      Int
+  quantidadeParcelas Int
+  status             Boolean
+  created_at         DateTime @default(now())
+  updated_at         DateTime
+
+  usuarioId String
+  usuario   Usuarios @relation(fields: [usuarioId], references: [usuarioId])
+
+  dividaId String
+  divida   Divida @relation(fields: [dividaId], references: [dividaId])
+
+  @@map("parcelas")
 }
