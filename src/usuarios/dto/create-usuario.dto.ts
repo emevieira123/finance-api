@@ -8,9 +8,17 @@ import {
 } from 'class-validator';
 
 export class CreateUsuarioDto extends Usuario {
+  /**
+   * O email é usado para realizar o login do usuário
+   * @example marcos.augusto@gmail.com
+   * */
   @IsEmail({}, { message: 'O email informado é inválido' })
   email: string;
 
+  /**
+   * A senha é usada para realizar o login, ela devem ter no mínimo 4 e no máximo 20 caracteres, contendo letras maiúsculas, minusculas e números
+   * @example ABC@123
+   * */
   @IsString()
   @MinLength(4, { message: 'A senha deve ter no mínimo 4 caracteres' })
   @MaxLength(20, { message: 'A senha deve ter no máximo 20 caracteres' })
@@ -19,9 +27,17 @@ export class CreateUsuarioDto extends Usuario {
   })
   senha: string;
 
+  /**
+   * O nome é usado para exibição no perfil
+   * @example Antonio Augusto
+   * */
   @IsString()
   nome: string;
 
+  /**
+   * O usuario do github é usado para exibição do avatar
+   * @example fulano
+   * */
   @IsString()
   usuarioGithub: string;
 }
