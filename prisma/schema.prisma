@@ -14,8 +14,7 @@ model Usuarios {
   senha         String
   usuarioGithub String
 
-  divida   Divida[]
-  parcelas Parcelas[]
+  divida Divida[]
 
   @@map("usuarios")
 }
@@ -35,16 +34,12 @@ model Divida {
 }
 
 model Parcelas {
-  parcelaId          String   @id @default(uuid())
-  valorParcela       Decimal
-  diaVencimento      Int
-  quantidadeParcelas Int
-  status             Boolean
-  created_at         DateTime @default(now())
-  updated_at         DateTime
-
-  usuarioId String
-  usuario   Usuarios @relation(fields: [usuarioId], references: [usuarioId])
+  parcelaId      String    @id @default(uuid())
+  valorParcela   Decimal
+  dataVencimento DateTime
+  status         Boolean
+  created_at     DateTime  @default(now())
+  updated_at     DateTime?
 
   dividaId String
   divida   Divida @relation(fields: [dividaId], references: [dividaId])

@@ -15,9 +15,9 @@ export class AuthService {
 
   async login(usuario: Usuario): Promise<UsuarioToken> {
     const payload: UsuarioPayload = {
-      sub: usuario?.usuarioId,
-      email: usuario?.email,
-      nome: usuario?.nome,
+      sub: usuario.usuarioId,
+      email: usuario.email,
+      nome: usuario.nome,
     };
 
     return {
@@ -25,12 +25,11 @@ export class AuthService {
     };
   }
 
-  async validateUser(email: string, senha: string) {
+  async validateUser(email: string, password: string) {
     const usuario = await this.usuariosService.findByEmail(email);
 
     if (usuario) {
-      // Checa se a senha informada corresponde a hash que está no banco
-      const isPasswordValid = await bcrypt.compare(senha, usuario.senha);
+      const isPasswordValid = await bcrypt.compare(password, usuario.senha);
 
       if (isPasswordValid) {
         return {

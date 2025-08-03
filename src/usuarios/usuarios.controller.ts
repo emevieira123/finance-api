@@ -9,6 +9,7 @@ import {
   getSchemaPath,
 } from '@nestjs/swagger';
 import { Usuario } from './entities/usuario.entity';
+import { IsPublic } from 'src/auth/decorators/is-public.decorator';
 
 @ApiTags('Usuários')
 @Controller('api/usuarios')
@@ -16,6 +17,7 @@ import { Usuario } from './entities/usuario.entity';
 export class UsuariosController {
   constructor(private readonly usuariosService: UsuariosService) {}
 
+  @IsPublic()
   @Post()
   create(@Body() createUsuarioDto: CreateUsuarioDto) {
     return this.usuariosService.create(createUsuarioDto);

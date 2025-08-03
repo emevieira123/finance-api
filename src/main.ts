@@ -24,6 +24,8 @@ async function bootstrap() {
       'emevieira.dev@gmail.com',
     )
     .addTag('Auth')
+    .addTag('Dashboards')
+    .addTag('Dividas')
     .addTag('Usuários')
     .setBasePath('http://localhost:3333')
     .build();

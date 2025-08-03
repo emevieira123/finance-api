@@ -1,0 +1,35 @@
+export default {
+  dividaId: 'f3d1b43c-bbe9-487b-b416-012ff1cb4f34',
+  nomeCobrador: 'Cobrador Teste5',
+  nomeProduto: 'Produto Teste5',
+  quantidadeParcelas: 3,
+  dataCriacao: '2024-05-01T00:58:55.675Z',
+  valorTotal: 690,
+  statusDivida: 'Pendente',
+  parcelas: [
+    {
+      parcelaId: '49b67e6b-071b-4365-b657-82038213b275',
+      valorParcela: '230',
+      dataVencimento: 11,
+      status: false,
+      dataCriacao: '2024-05-01T00:58:55.675Z',
+      dataAtualizacao: '2024-05-01T00:58:55.672Z',
+    },
+    {
+      parcelaId: '8f8fc298-07ed-4d9d-876e-4c4ec86ef51e',
+      valorParcela: '230',
+      dataVencimento: 11,
+      status: false,
+      dataCriacao: '2024-05-01T00:58:55.675Z',
+      dataAtualizacao: '2024-05-01T00:58:55.672Z',
+    },
+    {
+      parcelaId: 'ffa1f2c5-fde0-408e-8824-dce4611dd99f',
+      valorParcela: '230',
+      dataVencimento: 11,
+      status: false,
+      dataCriacao: '2024-05-01T00:58:55.675Z',
+      dataAtualizacao: '2024-05-01T00:58:55.672Z',
+    },
+  ],
+};

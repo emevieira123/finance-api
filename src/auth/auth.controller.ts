@@ -39,6 +39,6 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
   login(@Request() req: AuthRequest) {
-    return this.authService.login(req.usuario);
+    return this.authService.login(req.user);
   }
 }

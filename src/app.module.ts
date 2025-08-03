@@ -6,9 +6,17 @@ import { UsuariosModule } from './usuarios/usuarios.module';
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { DividasModule } from './dividas/dividas.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
-  imports: [PrismaModule, UsuariosModule, AuthModule],
+  imports: [
+    PrismaModule,
+    UsuariosModule,
+    AuthModule,
+    DividasModule,
+    DashboardModule,
+  ],
   controllers: [AppController],
   providers: [
     AppService,
