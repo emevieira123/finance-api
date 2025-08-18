@@ -3,6 +3,7 @@ import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DashboardService } from './dashboard.service';
 import dashboardSummary from './responses/dashboard-summary';
 import pagamentosRecentes from './responses/pagamentos-recentes';
+import dashboardChart from './responses/dashboard-chart';
 
 @ApiTags('Dashboards')
 @Controller('api/dashboard')
@@ -28,6 +29,16 @@ export class DashboardController {
   @Get('pagamentos-recentes')
   findPagamentosRecentes() {
     return this.dashboardService.findPagamentosRecentes();
+  }
+
+  @ApiResponse({
+    schema: {
+      default: dashboardChart,
+    },
+  })
+  @Get('dados-grafico')
+  findDadosGrafico() {
+    return this.dashboardService.findDadosGrafico();
   }
 
   @Get(':id')

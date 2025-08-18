@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 import {
@@ -18,8 +19,11 @@ import { CurrentUser } from 'src/auth/decorators/current-usuario.decorator';
 import { Usuario } from 'src/usuarios/entities/usuario.entity';
 import { DividasService } from './dividas.service';
 import { CreateDividaDto } from './dto/create-divida.dto';
+import { UpdateDividaDto } from './dto/update-divida.dto';
 import divida from './responses/divida';
-import dividas from './responses/dividas';
+import dividasPaginadas from './responses/dividas-paginadas';
+import dividasCabecalho from './responses/dividas-cabecalho';
+import updateDivida from './responses/update-divida';
 import requestDivida from './responses/requestDivida';
 
 @ApiTags('Dividas')
@@ -49,13 +53,33 @@ export class DividasController {
 
   @ApiResponse({
     schema: {
-      default: dividas,
+      default: dividasCabecalho,
     },
   })
+  @Get('cabecalho')
+  findCabecalho() {
+    return this.dividasService.findCabecalho();
+  }
+
+  @ApiResponse({
+    schema: {
+      default: dividasPaginadas,
+    },
+  })
+  @ApiQuery({ name: 'pagina', required: false, type: Number })
+  @ApiQuery({ name: 'qtdItemsPorPagina', required: false, type: Number })
   @ApiQuery({ name: 'filtro', required: false, type: String })
   @Get()
-  findAll(@Query('filtro') filtro?: string) {
-    return this.dividasService.findAll(filtro);
+  findAll(
+    @Query('pagina') pagina?: number,
+    @Query('qtdItemsPorPagina') qtdItemsPorPagina?: number,
+    @Query('filtro') filtro?: string,
+  ) {
+    return this.dividasService.findAll(
+      pagina || 1,
+      qtdItemsPorPagina || 10,
+      filtro,
+    );
   }
 
   @ApiResponse({
@@ -69,13 +93,34 @@ export class DividasController {
     return this.dividasService.findOne(dividaId);
   }
 
-  // @Put(':dividaId')
-  // update(
-  //   @Param('dividaId') dividaId: string,
-  //   @Body() updateDividaDto: UpdateDividaDto,
-  // ) {
-  //   return this.dividasService.update(dividaId, updateDividaDto);
-  // }
+  @ApiBody({
+    schema: {
+      default: {
+        nomeCobrador: 'Cobrador Atualizado',
+        nomeProduto: 'Produto Atualizado',
+        parcelas: [
+          {
+            valorParcela: 250.0,
+            dataVencimento: '2024-06-15T00:00:00.000Z',
+            status: false,
+          },
+        ],
+      },
+    },
+  })
+  @ApiResponse({
+    status: 200,
+    schema: {
+      default: updateDivida,
+    },
+  })
+  @Put(':dividaId')
+  update(
+    @Param('dividaId') dividaId: string,
+    @Body() updateDividaDto: UpdateDividaDto,
+  ) {
+    return this.dividasService.update(dividaId, updateDividaDto);
+  }
 
   @ApiResponse({
     schema: {
