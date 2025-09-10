@@ -23,6 +23,8 @@ export class AuthController {
       default: {
         access_token:
           'eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp.eyJzdWIiOiI0NTYyMmRlOS1lNWQzLTRhMDItYmM0ZC1hMDFmMjk4NmNhMWUiLCJlbWFpbCI6ImFkbWluQHRlc3RlLmNvbSIsIm5hbWUiOiJhZG1pbiIsImlhdCI6MTcwNjIyMDA5MywiZX.Iud8es4WdhDoCzhl4ziT',
+        nome: 'admin',
+        usuarioGithub: 'admin-github',
       },
     },
   })

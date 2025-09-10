@@ -8,6 +8,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { DividasModule } from './dividas/dividas.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { ParcelasModule } from './parcelas/parcelas.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     AuthModule,
     DividasModule,
     DashboardModule,
+    ParcelasModule,
   ],
   controllers: [AppController],
   providers: [

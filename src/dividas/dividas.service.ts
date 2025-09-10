@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateDividaDto } from './dto/create-divida.dto';
 import { UpdateDividaDto } from './dto/update-divida.dto';
@@ -361,6 +366,23 @@ export class DividasService {
   }
 
   async remove(dividaId: string) {
+    // Verificar se a dívida existe
+    const dividaExist = await this.prisma.divida.findUnique({
+      where: { dividaId },
+    });
+
+    if (!dividaExist) {
+      throw new NotFoundException('Dívida não encontrada');
+    }
+
+    // Primeiro excluir todas as parcelas associadas à dívida
+    await this.prisma.parcelas.deleteMany({
+      where: {
+        dividaId,
+      },
+    });
+
+    // Depois excluir a dívida
     const result = await this.prisma.divida.delete({
       where: {
         dividaId,
